@@ -1,0 +1,285 @@
+/* ---------------------------------------------------
+   Tokens
+--------------------------------------------------- */
+:root {
+  --cream:     #F5EEE3;
+  --paper:     #FFFCF6;
+  --ink:       #3A2A1D;
+  --ink-soft:  #7A6752;
+  --coffee:    #8B4D1C;
+  --coffee-dk: #5C3410;
+  --rose:      #C1A9A9;
+  --line:      #E5D8C7;
+
+  --serif: "Fraunces", "Iowan Old Style", "Georgia", serif;
+  --sans:  "Inter", -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--cream);
+  background-image:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(139,77,28,0.06), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(193,169,169,0.10), transparent 60%);
+  color: var(--ink);
+  font-family: var(--sans);
+  display: flex;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* ---------------------------------------------------
+   Page shell
+--------------------------------------------------- */
+.page {
+  width: 100%;
+  max-width: 430px;
+  padding: 28px 20px 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------------------------------------------------
+   Top attribution badge
+--------------------------------------------------- */
+.badge-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 34px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px 6px 8px;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 2px rgba(58, 42, 29, 0.06);
+}
+
+.badge__mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.badge__text {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  letter-spacing: 0.01em;
+}
+
+/* ---------------------------------------------------
+   Hero — cafe identity
+--------------------------------------------------- */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.hero__logo {
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 6px var(--paper),
+    0 0 0 7px var(--line),
+    0 18px 30px -16px rgba(58, 42, 29, 0.45);
+  margin-bottom: 16px;
+}
+
+.hero__eyebrow {
+  margin: 0;
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+/* ---------------------------------------------------
+   Receipt card
+--------------------------------------------------- */
+.receipt {
+  position: relative;
+  width: 100%;
+  background: var(--paper);
+  padding: 34px 26px 28px;
+  border-radius: 6px;
+  box-shadow:
+    0 26px 44px -24px rgba(58, 42, 29, 0.40),
+    0 2px 8px rgba(58, 42, 29, 0.08);
+  animation: printOut 620ms cubic-bezier(.22,.9,.3,1) both;
+  transform-origin: top center;
+}
+
+@keyframes printOut {
+  from { opacity: 0; transform: translateY(-14px) scaleY(0.97); }
+  to   { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+
+/* scalloped / perforated ticket edges, echoing the Tap Card mark */
+.receipt::before,
+.receipt::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  height: 13px;
+  background-image: radial-gradient(circle at 9px 50%, var(--cream) 6.5px, transparent 7px);
+  background-size: 18px 13px;
+  background-repeat: repeat-x;
+}
+
+.receipt::before { top: -1px; }
+.receipt::after   { bottom: -1px; transform: rotate(180deg); }
+
+.receipt__title {
+  margin: 0 0 22px;
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: 26px;
+  text-align: center;
+  color: var(--ink);
+}
+
+.gcash-tag {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.gcash-tag__mark {
+  height: 20px;
+  width: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.receipt__qr-frame {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.receipt__qr {
+  width: 100%;
+  max-width: 312px;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px var(--line);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+.receipt__fee-note {
+  margin: 0 0 20px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.receipt__account {
+  margin: 0 0 22px;
+  text-align: center;
+}
+
+.receipt__account-name {
+  margin: 0 0 6px;
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 19px;
+  color: #0057D9;
+}
+
+.receipt__account-row {
+  margin: 0 0 2px;
+  font-size: 13px;
+}
+
+.receipt__label {
+  color: var(--ink-soft);
+  margin-right: 4px;
+}
+
+.receipt__value {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.receipt__divider {
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--line) 0 8px,
+    transparent 8px 14px
+  );
+  margin: 0 0 20px;
+}
+
+.receipt__instructions {
+  margin: 0 0 10px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink);
+  text-align: center;
+  max-width: 30ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.receipt__note {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+/* ---------------------------------------------------
+   Footer
+--------------------------------------------------- */
+.footer {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+
+/* ---------------------------------------------------
+   Small screens
+--------------------------------------------------- */
+@media (max-width: 360px) {
+  .hero__logo { width: 108px; height: 108px; }
+  .receipt__title { font-size: 23px; }
+}
